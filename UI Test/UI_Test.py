@@ -39,9 +39,9 @@ def test_title_check():
         actual_title = driver.title
         expected_title = "Restful-booker-platform demo"
         if actual_title == expected_title:
-            print("✅ TEST PASS — Sayfa başlığı beklenenle eşleşiyor.")
+            print("TEST PASS — Sayfa başlığı beklenenle eşleşiyor.")
         else:
-            print("❌ TEST FAIL — Sayfa başlığı beklenenle eşleşmiyor.")
+            print("TEST FAIL — Sayfa başlığı beklenenle eşleşmiyor.")
             print(f"Beklenen: '{expected_title}' — Gerçekleşen: '{actual_title}'")
     finally:
         quit_driver(driver)
@@ -68,9 +68,9 @@ def test_invalid_phone_input():
         time.sleep(1)
         error_elements = driver.find_elements(By.CLASS_NAME, "alert-danger")
         if any("phone" in e.text.lower() for e in error_elements):
-            print("✅ TEST PASS — Telefon hatası başarılı şekilde algılandı.")
+            print("TEST PASS — Telefon hatası başarılı şekilde algılandı.")
         else:
-            print("❌ TEST FAIL — Geçersiz telefon için uyarı mesajı görünmedi.")
+            print("TEST FAIL — Geçersiz telefon için uyarı mesajı görünmedi.")
     finally:
         quit_driver(driver)
 
@@ -95,9 +95,9 @@ def test_empty_email_field_warning():
         time.sleep(1)
         error_elements = driver.find_elements(By.CLASS_NAME, "alert-danger")
         if any("email may not be blank" in e.text.lower() for e in error_elements):
-            print("✅ TEST PASS — E-posta boş bırakıldığında uyarı gösterildi.")
+            print("TEST PASS — E-posta boş bırakıldığında uyarı gösterildi.")
         else:
-            print("❌ TEST FAIL — Uyarı mesajı bulunamadı.")
+            print("TEST FAIL — Uyarı mesajı bulunamadı.")
     finally:
         quit_driver(driver)
 
@@ -124,9 +124,9 @@ def test_very_long_message_warning():
         time.sleep(1)
         error_elements = driver.find_elements(By.CLASS_NAME, "alert-danger")
         if any("message must be between 20 and 2000 characters" in e.text.lower() for e in error_elements):
-            print("✅ TEST PASS — Uzun mesaj için doğru uyarı verildi.")
+            print("TEST PASS — Uzun mesaj için doğru uyarı verildi.")
         else:
-            print("❌ TEST FAIL — Uzun mesaj gönderildi ama uyarı çıkmadı.")
+            print("TEST FAIL — Uzun mesaj gönderildi ama uyarı çıkmadı.")
     finally:
         quit_driver(driver)
 
@@ -143,10 +143,10 @@ def test_admin_login_form_visibility():
         wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "form")))
         driver.find_element(By.CSS_SELECTOR, "input[type='text'], input[name='username']")
         driver.find_element(By.CSS_SELECTOR, "input[type='password']")
-        print("✅ TEST PASS — Login formu görünür.")
+        print("TEST PASS — Login formu görünür.")
     except Exception as e:
-        print("❌ TEST FAIL — Admin panel login formu görünmedi.")
-        print(f"⛔ Hata Detayı: {e}")
+        print("TEST FAIL — Admin panel login formu görünmedi.")
+        print(f"Hata Detayı: {e}")
     finally:
         quit_driver(driver)
 
@@ -168,10 +168,10 @@ def test_invalid_admin_login():
         time.sleep(2)
         error_elements = driver.find_elements(By.CLASS_NAME, "alert-danger")
         if error_elements:
-            print("✅ TEST PASS — Hatalı bilgilerle giriş reddedildi.")
-            print("🔍 Hata Mesajı:", error_elements[0].text.strip())
+            print("TEST PASS — Hatalı bilgilerle giriş reddedildi.")
+            print("Hata Mesajı:", error_elements[0].text.strip())
         else:
-            print("❌ TEST FAIL — Hatalı girişte uyarı mesajı çıkmadı.")
+            print("TEST FAIL — Hatalı girişte uyarı mesajı çıkmadı.")
     finally:
         quit_driver(driver)
 
@@ -194,11 +194,11 @@ def test_valid_admin_login():
         page_source = driver.page_source
         keywords = ["Rooms", "Logout", "Add Room", "roomName"]
         if any(kw in page_source for kw in keywords):
-            print("✅ TEST PASS — Admin olarak giriş yapıldı, panel erişimi başarılı.")
+            print("TEST PASS — Admin olarak giriş yapıldı, panel erişimi başarılı.")
         else:
-            print("❌ TEST FAIL — Panel içerikleri görünmedi.")
+            print("TEST FAIL — Panel içerikleri görünmedi.")
     except Exception as e:
-        print(f"❌ TEST ERROR — Giriş sırasında hata oluştu: {e}")
+        print(f"TEST ERROR — Giriş sırasında hata oluştu: {e}")
     finally:
         quit_driver(driver)
 
@@ -229,11 +229,11 @@ def test_empty_form_submission():
 
         # Hata mesajlarını yazdır
         if error_elements:
-            print("TEST PASS ✅ — Form boş gönderildi, hata mesajları başarıyla alındı:")
+            print("TEST PASS — Form boş gönderildi, hata mesajları başarıyla alındı:")
             for i, error in enumerate(error_elements, 1):
                 print(f"{i}. {error.text}")
         else:
-            print("TEST FAIL ❌ — Form boş gönderildi ama hata mesajı gösterilmedi!")
+            print("TEST FAIL — Form boş gönderildi ama hata mesajı gösterilmedi!")
     finally:
         driver.quit()
 
@@ -251,7 +251,7 @@ def test_rooms_and_contact():
         rooms_link.click()
         time.sleep(1)
         wait.until(EC.presence_of_element_located((By.ID, "rooms")))
-        print("✅ TEST PASS — 'Rooms' bağlantısı çalıştı, 'Rooms' bölümü göründü.")
+        print("TEST PASS — 'Rooms' bağlantısı çalıştı, 'Rooms' bölümü göründü.")
 
         contact_link = wait.until(EC.element_to_be_clickable((By.LINK_TEXT, "Contact")))
         driver.execute_script("arguments[0].scrollIntoView(true);", contact_link)
@@ -261,12 +261,12 @@ def test_rooms_and_contact():
         inputs = ["name", "email", "phone", "subject", "description"]
         all_found = all(wait.until(EC.visibility_of_element_located((By.ID, i))) for i in inputs)
         if all_found:
-            print("✅ TEST PASS — 'Contact' bağlantısı çalıştı, iletişim formu bulundu.")
+            print("TEST PASS — 'Contact' bağlantısı çalıştı, iletişim formu bulundu.")
         else:
-            print("❌ TEST FAIL — 'Contact' bağlantısı çalıştı ama iletişim formu eksik.")
+            print("TEST FAIL — 'Contact' bağlantısı çalıştı ama iletişim formu eksik.")
     except Exception as e:
-        print("❌ TEST FAIL — Rooms veya Contact testi sırasında hata oluştu.")
-        print(f"⛔ Hata Detayı: {e}")
+        print("TEST FAIL — Rooms veya Contact testi sırasında hata oluştu.")
+        print(f"Hata Detayı: {e}")
     finally:
         quit_driver(driver)
 
@@ -284,12 +284,12 @@ def test_mobile_menu_display():
         menu_button.click()
         menu_links = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "navbar-collapse")))
         if menu_links.is_displayed():
-            print("✅ TEST PASS — Mobil görünümde hamburger menü başarıyla açıldı.")
+            print("TEST PASS — Mobil görünümde hamburger menü başarıyla açıldı.")
         else:
-            print("❌ TEST FAIL — Menü görünmedi, responsive tasarım hatası olabilir.")
+            print("TEST FAIL — Menü görünmedi, responsive tasarım hatası olabilir.")
     except Exception as e:
-        print("❌ TEST ERROR — Menü testi sırasında hata oluştu.")
-        print("⛔ Hata Detayı:", str(e))
+        print("TEST ERROR — Menü testi sırasında hata oluştu.")
+        print("Hata Detayı:", str(e))
     finally:
         quit_driver(driver)
 
@@ -305,12 +305,12 @@ def test_404_page_display():
         wait = WebDriverWait(driver, 10)
         error_heading = wait.until(EC.presence_of_element_located((By.TAG_NAME, "h1")))
         if "404" in error_heading.text or "not found" in error_heading.text.lower():
-            print("✅ TEST PASS — Hatalı URL için 404 sayfası başarıyla görüntülendi.")
+            print("TEST PASS — Hatalı URL için 404 sayfası başarıyla görüntülendi.")
         else:
-            print("❌ TEST FAIL — 404 sayfası bekleniyordu ama farklı içerik bulundu.")
+            print("TEST FAIL — 404 sayfası bekleniyordu ama farklı içerik bulundu.")
     except Exception as e:
-        print("❌ TEST ERROR — 404 testi sırasında hata oluştu.")
-        print("⛔ Hata Detayı:", str(e))
+        print("TEST ERROR — 404 testi sırasında hata oluştu.")
+        print("Hata Detayı:", str(e))
     finally:
         quit_driver(driver)
 
@@ -334,7 +334,7 @@ def test_room_availability():
         rooms = driver.find_elements(By.CLASS_NAME, "room-card")
         
         if rooms and len(rooms) > 0:
-            print("✅ TEST PASS — Uygun odalar listelendi.")
+            print("TEST PASS — Uygun odalar listelendi.")
             # İlk "Book Now" butonuna tıklayın
             book_now = rooms[0].find_element(By.LINK_TEXT, "Book now")
             driver.execute_script("arguments[0].scrollIntoView(true);", book_now)
@@ -343,11 +343,11 @@ def test_room_availability():
             time.sleep(3)  # Yönlendirme sonrası bekleme
             current_url = driver.current_url
             if "reservation" in current_url:
-                print("✅ TEST PASS — Yönlendirme başarılı.")
+                print("TEST PASS — Yönlendirme başarılı.")
             else:
-                print("❌ TEST FAIL — Yönlendirme yapılamadı.")
+                print("TEST FAIL — Yönlendirme yapılamadı.")
         else:
-            print("❌ TEST FAIL — Uygun oda bulunamadı.")
+            print("TEST FAIL — Uygun oda bulunamadı.")
     finally:
         quit_driver(driver)
 
